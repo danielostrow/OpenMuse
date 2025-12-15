@@ -1,0 +1,80 @@
+{
+  "name": "openmuse",
+  "version": "2.0.0",
+  "description": "AI-powered music notation IDE with Claude integration",
+  "main": "dist/main/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:electron": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "vite build && tsc -p tsconfig.main.json && tsc -p tsconfig.preload.json",
+    "build:main": "tsc -p tsconfig.main.json && tsc -p tsconfig.preload.json",
+    "build:electron": "npm run build && electron-builder",
+    "preview": "vite preview",
+    "electron": "electron .",
+    "lint": "eslint src --ext .ts,.svelte",
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "keywords": [
+    "music",
+    "notation",
+    "musicxml",
+    "ai",
+    "claude",
+    "electron",
+    "svelte"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/node": "^22.10.2",
+    "concurrently": "^9.1.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "eslint": "^9.16.0",
+    "svelte": "^5.14.1",
+    "svelte-check": "^4.1.1",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.0",
+    "wait-on": "^8.0.1"
+  },
+  "dependencies": {
+    "opensheetmusicdisplay": "^1.9.0"
+  },
+  "build": {
+    "appId": "com.openmuse.ide",
+    "productName": "OpenMuse",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "backend/**/*",
+      "!backend/venv/**/*",
+      "!backend/__pycache__/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "backend",
+        "to": "backend",
+        "filter": [
+          "**/*",
+          "!venv/**/*",
+          "!__pycache__/**/*"
+        ]
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.music",
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
