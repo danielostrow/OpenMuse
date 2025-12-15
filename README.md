@@ -224,3 +224,7 @@ npm run dev:electron  # Full dev mode with hot reload
 npm run dev           # Vite only (no Electron)
 npm run build         # Production build
 ```
+
+## License
+
+MIT with Attribution - free to use and modify, but you must credit "OpenMuse by Daniel Ostrow" in any derivative work. See [LICENSE](LICENSE) for details.
